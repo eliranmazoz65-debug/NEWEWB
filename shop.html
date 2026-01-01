@@ -157,7 +157,6 @@
 
         items.forEach(product => {
             let customHtml = '';
-            // הוספת אפשרות חריטה וצבע רק ל-2 המוצרים הראשונים
             if(product.hasOptions) {
                 customHtml = `
                     <div class="custom-area">
@@ -166,8 +165,6 @@
                             <option>זהב צהוב 14K</option>
                             <option>כסף סטרלינג 925</option>
                         </select>
-                        <label style="display:block; margin-top:10px;">חריטה אישית:</label>
-                        <input type="text" placeholder="הקלידו טקסט...">
                     </div>
                 `;
             }
@@ -178,8 +175,12 @@
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">₪${product.price}</div>
                     ${customHtml}
-                    <button class="btn-add" onclick="alert('נוסף לסל')">הוספה לסל</button>
+                    <a href="product.html?id=${product.id}" class="btn-add" style="text-decoration:none; display:block; text-align:center;">
+                        לצפייה בפרטים וחריטה
+                    </a>
                 </div>
+            `;
+        });
             `;
         });
     </script>
