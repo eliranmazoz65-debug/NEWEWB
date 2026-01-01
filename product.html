@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELIRAN | פרטי המוצר</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Assistant:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-page-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            padding: 20px;
+        }
+        .product-image-large {
+            background: #f9f9f9;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel';
+            color: #ccc;
+            border: 1px solid #eee;
+        }
+        .product-details h1 { font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .product-description { line-height: 1.8; color: #555; margin: 20px 0; font-size: 1.1rem; }
+        .product-price-large { font-size: 2rem; color: var(--gold); font-weight: 600; margin-bottom: 30px; }
+        
+        @media (max-width: 768px) {
+            .product-page-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">ELIRAN</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">בית</a></li>
+                    <li><a href="shop.html">קולקציה</a></li>
+                    <li><a href="contact.html">צור קשר</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-page-container" id="product-content">
+        </main>
+
+    <script>
+        // בסיס נתונים של תיאורי המוצרים
+        const productsInfo = {
+            1: { name: "צמיד טניס 'אריאה'", price: "1,200", desc: "צמיד טניס קלאסי משובץ זירקונים באיכות הגבוהה ביותר. עשוי זהב 14K, מעניק מראה יוקרתי ונוצץ לכל אירוע." },
+            2: { name: "צמיד חוליות 'מרינה'", price: "950", desc: "צמיד חוליות מעוצב בסגנון מודרני. ניתן להוסיף חריטה אישית על לוחית הזהב המרכזית. מתנה מושלמת עם משמעות." },
+            3: { name: "שרשרת יהלום סוליטר", price: "4,500", desc: "יהלום טבעי בחיתוך בריליאנט על שרשרת זהב דקה. פריט חובה בכל קולקציית תכשיטים, עדין ואלגנטי." }
+            // ניתן להוסיף כאן את כל 10 המוצרים...
+        };
+
+        // פונקציה לקריאת ה-ID מהכתובת
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const product = productsInfo[productId];
+
+        const container = document.getElementById('product-content');
+
+        if (product) {
+            container.innerHTML = `
+                <div class="product-image-large">תמונת תקריב</div>
+                <div class="product-details">
+                    <h1>${product.name}</h1>
+                    <div class="product-price-large">₪${product.price}</div>
+                    <div class="product-description">
+                        <h3>תיאור התכשיט:</h3>
+                        <p>${product.desc}</p>
+                    </div>
+                    <button class="btn-add" style="padding: 20px;">הוספה לסל הקניות</button>
+                </div>
+            `;
+        } else {
+            container.innerHTML = "<h2>המוצר לא נמצא</h2>";
+        }
+    </script>
+</body>
+</html>
