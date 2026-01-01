@@ -1,0 +1,99 @@
+/* style.css */
+:root {
+    --gold: #c5a059;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --gray: #f4f4f4;
+}
+
+body {
+    margin: 0;
+    font-family: 'Assistant', sans-serif;
+    line-height: 1.6;
+}
+
+/* הדר יוקרתי */
+header {
+    background-color: var(--white);
+    border-bottom: 1px solid #ececec;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    text-decoration: none;
+    color: var(--black);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 400;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+/* פוטר יוקרתי */
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 60px 0 20px;
+    margin-top: 100px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.footer-section h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 0.85rem;
+    color: #bbb;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 0.75rem;
+    color: #666;
+}
