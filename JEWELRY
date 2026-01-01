@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow & Grace | חנות תכשיטים</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #2c3e50;
+            --light: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            sticky: top;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        h3 { margin: 10px 0; font-size: 1.2rem; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.1rem; }
+
+        .options {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: opacity 0.3s;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .cart-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>GLOW & GRACE</h1>
+    <p>תכשיטים בעיצוב אישי</p>
+</header>
+
+<div class="container">
+    <div class="grid" id="product-grid">
+        </div>
+</div>
+
+<div class="cart-status">
+    🛒 סל קניות: <span id="cart-count">0</span> פריטים
+</div>
+
+<script>
+    const products = [
+        { id: 1, name: "צמיד טניס יוקרתי", price: 450, hasOptions: true },
+        { id: 2, name: "צמיד חוליות קלאסי", price: 320, hasOptions: true },
+        { id: 3, name: "שרשרת פנינה", price: 280, hasOptions: false },
+        { id: 4, name: "עגילי חישוק זהב", price: 150, hasOptions: false },
+        { id: 5, name: "טבעת יהלום מעוצבת", price: 890, hasOptions: false },
+        { id: 6, name: "שרשרת שם אישית", price: 210, hasOptions: false },
+        { id: 7, name: "צמיד רגל עדין", price: 120, hasOptions: false },
+        { id: 8, name: "עגילי צמודים קריסטל", price: 95, hasOptions: false },
+        { id: 9, name: "טבעת חותם", price: 340, hasOptions: false },
+        { id: 10, name: "סט עגילים ושרשרת", price: 550, hasOptions: false }
+    ];
+
+    const grid = document.getElementById('product-grid');
+    let cartCount = 0;
+
+    products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        let optionsHtml = '';
+        if(p.hasOptions) {
+            optionsHtml = `
+                <div class="options">
+                    <label>צבע מתכת:</label>
+                    <select>
+                        <option>זהב 14K</option>
+                        <option>כסף סטרלינג 925</option>
+                    </select>
+                    <label style="display:block; margin-top:10px;">חריטה אישית:</label>
+                    <input type="text" placeholder="מה לכתוב? (אופציונלי)">
+                </div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="image-placeholder">תמונת תכשיט</div>
+            <h3>${p.name}</h3>
+            <p class="price">₪${p.price}</p>
+            ${optionsHtml}
+            <button onclick="addToCart()">הוסף לסל</button>
+        `;
+        grid.appendChild(card);
+    });
+
+    function addToCart() {
+        cartCount++;
+        document.getElementById('cart-count').innerText = cartCount;
+        alert("המוצר נוסף לסל הקניות בהצלחה!");
+    }
+</script>
+
+</body>
+</html>
