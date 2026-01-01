@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELIRAN | הבית של התכשיטים היוקרתיים</title>
+    <title>ELIRAN JEWELRY | דף הבית</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Assistant:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #c5a059; --black: #1a1a1a; --white: #ffffff; }
+        :root { --gold: #c5a059; --black: #111; --white: #fff; }
+        body { font-family: 'Assistant', sans-serif; margin: 0; padding: 0; background: #fff; }
         
-        body { font-family: 'Assistant', sans-serif; margin: 0; background: #fff; color: var(--black); scroll-behavior: smooth; }
-
-        /* Hero Section */
+        /* סקציית הגיבור - Hero */
         .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1573408302355-4e0b7caf3943?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -23,62 +22,77 @@
             color: white;
             text-align: center;
         }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 4rem; margin: 0; letter-spacing: 10px; }
+        .hero p { font-size: 1.2rem; letter-spacing: 3px; margin: 20px 0; }
+        .hero-btn { border: 1px solid white; padding: 12px 35px; color: white; text-decoration: none; transition: 0.3s; }
+        .hero-btn:hover { background: white; color: black; }
 
-        .hero h2 { font-family: 'Cinzel', serif; font-size: 3.5rem; margin-bottom: 10px; letter-spacing: 8px; }
-        .hero p { font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 30px; }
+        /* גריד מוצרים */
+        .container { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+        .section-title { font-family: 'Cinzel', serif; text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
         
-        .hero-btn {
-            padding: 15px 40px;
-            border: 1px solid white;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .hero-btn:hover { background: white; color: var(--black); }
-
-        /* קטגוריית חריטה מודגשת */
-        .engraving-promo {
-            background: #fdfaf3;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid #eee;
-        }
-
-        /* גריד המוצרים (המשך מהקוד הקודם) */
-        .section-title { font-family: 'Cinzel', serif; text-align: center; margin: 60px 0 40px; font-size: 2rem; }
+        .card { text-align: center; border: 1px solid #f2f2f2; padding: 20px; transition: 0.4s; }
+        .card:hover { border-color: var(--gold); }
+        .img-box { width: 100%; height: 300px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 0.8rem; color: #999; }
         
-        /* ... שאר העיצוב מהקוד הקודם נשמר כאן ... */
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .card { border: 1px solid #f0f0f0; padding: 15px; text-align: center; }
-        .btn { background: var(--black); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; margin-top: 10px; }
+        .price { color: var(--gold); font-size: 1.3rem; margin: 10px 0; }
+        .buy-btn { background: var(--black); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; letter-spacing: 1px; }
+        .buy-btn:hover { background: var(--gold); }
+
+        /* עיצוב חריטה */
+        .engraving-box { background: #fdfaf3; padding: 15px; margin-bottom: 15px; font-size: 0.9rem; border: 1px dashed var(--gold); }
+        input { width: 90%; padding: 8px; margin-top: 10px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
-<section class="hero">
-    <h2>ELIRAN</h2>
-    <p>PURE GOLD • TIMELESS DESIGN</p>
-    <a href="#collection" class="hero-btn">לצפייה בקולקציה</a>
-</section>
+    <header style="text-align: center; padding: 20px; background: white;">
+        <h2 style="font-family: 'Cinzel'; letter-spacing: 5px; margin: 0;">ELIRAN</h2>
+    </header>
 
-<section class="engraving-promo">
-    <h3 style="font-family: 'Cinzel'; color: var(--gold);">חריטה אישית - להפוך רגע לנצח</h3>
-    <p>הוסיפו הקדשה אישית לצמידי היוקרה שלנו ללא תוספת תשלום.</p>
-</section>
+    <section class="hero">
+        <h1>ELIRAN</h1>
+        <p>תכשיטים שנוצרו עבורך</p>
+        <a href="#shop" class="hero-btn">גלו את הקולקציה</a>
+    </section>
 
-<div class="container" id="collection">
-    <h2 class="section-title">הנבחרים שלנו</h2>
-    <div class="grid" id="jewelry-store">
-        </div>
-</div>
+    <div class="container" id="shop">
+        <h2 class="section-title">הקולקציה החדשה</h2>
+        <div class="grid" id="product-list"></div>
+    </div>
 
-<script>
-    // כאן תכניס את אותו ה-Script מההודעה הקודמת שלי (שמייצר את 10 התכשיטים)
-</script>
+    <script>
+        const products = [
+            { id: 1, name: "צמיד טניס יוקרתי", price: "1,200", extra: true },
+            { id: 2, name: "צמיד חוליות אישי", price: "950", extra: true },
+            { id: 3, name: "שרשרת יהלום סוליטר", price: "4,500", extra: false },
+            { id: 4, name: "עגילי פנינה טבעית", price: "680", extra: false },
+            { id: 5, name: "טבעת זהב 14K", price: "1,100", extra: false },
+            { id: 6, name: "שרשרת שם מעוצבת", price: "850", extra: false },
+            { id: 7, name: "צמיד רגל מוזהב", price: "420", extra: false },
+            { id: 8, name: "עגילי חישוק קטנים", price: "350", extra: false },
+            { id: 9, name: "טבעת חותם לגבר", price: "1,450", extra: false },
+            { id: 10, name: "סט תכשיטי כלה", price: "6,200", extra: false }
+        ];
 
+        const list = document.getElementById('product-list');
+        products.forEach(p => {
+            list.innerHTML += `
+                <div class="card">
+                    <div class="img-box">תמונת תכשיט</div>
+                    <h3 style="font-family:'Cinzel'">${p.name}</h3>
+                    <div class="price">₪${p.price}</div>
+                    ${p.extra ? `
+                        <div class="engraving-box">
+                            <label>בחירת צבע: זהב / כסף</label><br>
+                            <input type="text" placeholder="טקסט לחריטה...">
+                        </div>
+                    ` : ''}
+                    <button class="buy-btn" onclick="alert('התכשיט נוסף לסל')">הוספה לסל</button>
+                </div>
+            `;
+        });
+    </script>
 </body>
 </html>
