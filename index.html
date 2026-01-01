@@ -3,175 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow & Grace | חנות תכשיטים</title>
+    <title>ELIRAN | Fine Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Assistant:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #d4af37;
-            --dark: #2c3e50;
-            --light: #f9f9f9;
+            --gold: #c5a059;
+            --dark-gold: #947438;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --bg: #fcfcfc;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg);
             margin: 0;
-            padding: 0;
-            color: var(--dark);
+            color: var(--black);
         }
 
+        /* לוגו ותפריט */
         header {
-            background: white;
-            padding: 1rem;
+            background: var(--white);
+            padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            sticky: top;
+            border-bottom: 1px solid #eee;
+            letter-spacing: 5px;
         }
 
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--black);
+        }
+
+        /* גריד מוצרים */
         .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
+        /* כרטיס מוצר יוקרתי */
         .card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
+            background: var(--white);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
         }
 
-        .card:hover { transform: translateY(-5px); }
+        .card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+        }
 
-        .image-placeholder {
+        .image-box {
             width: 100%;
-            height: 200px;
-            background: #eee;
+            height: 350px;
+            background: #f0f0f0;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #888;
+            position: relative;
+            overflow: hidden;
         }
 
-        h3 { margin: 10px 0; font-size: 1.2rem; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.1rem; }
-
-        .options {
-            margin: 10px 0;
-            font-size: 0.9rem;
+        .image-box::after {
+            content: "PREMIUM";
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            position: absolute;
+            bottom: 15px;
         }
 
-        select, input[type="text"] {
+        h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            margin: 15px 0 5px;
+            font-weight: 400;
+        }
+
+        .price {
+            color: var(--dark-gold);
+            font-weight: 300;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* אפשרויות וריאציה */
+        .customization {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        select, input {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        button {
-            background: var(--dark);
-            color: white;
-            border: none;
             padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: auto;
-            transition: opacity 0.3s;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            font-family: 'Assistant', sans-serif;
         }
 
-        button:hover { opacity: 0.9; }
+        /* כפתור יוקרתי */
+        .btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            width: 100%;
+            cursor: pointer;
+            font-family: 'Assistant', sans-serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
 
-        .cart-status {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
+        .btn:hover {
             background: var(--gold);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .cart-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>GLOW & GRACE</h1>
-    <p>תכשיטים בעיצוב אישי</p>
+    <h1>ELIRAN</h1>
+    <p style="font-size: 0.8rem; color: #888;">FINE JEWELRY COLLECTIONS</p>
 </header>
 
 <div class="container">
-    <div class="grid" id="product-grid">
+    <div class="grid" id="jewelry-store">
         </div>
 </div>
 
-<div class="cart-status">
-    🛒 סל קניות: <span id="cart-count">0</span> פריטים
+<div class="cart-footer">
+    סל הקניות שלך מאובטח | <span id="count">0</span> פריטים נבחרו
 </div>
 
 <script>
     const products = [
-        { id: 1, name: "צמיד טניס יוקרתי", price: 450, hasOptions: true },
-        { id: 2, name: "צמיד חוליות קלאסי", price: 320, hasOptions: true },
-        { id: 3, name: "שרשרת פנינה", price: 280, hasOptions: false },
-        { id: 4, name: "עגילי חישוק זהב", price: 150, hasOptions: false },
-        { id: 5, name: "טבעת יהלום מעוצבת", price: 890, hasOptions: false },
-        { id: 6, name: "שרשרת שם אישית", price: 210, hasOptions: false },
-        { id: 7, name: "צמיד רגל עדין", price: 120, hasOptions: false },
-        { id: 8, name: "עגילי צמודים קריסטל", price: 95, hasOptions: false },
-        { id: 9, name: "טבעת חותם", price: 340, hasOptions: false },
-        { id: 10, name: "סט עגילים ושרשרת", price: 550, hasOptions: false }
+        { id: 1, name: "צמיד 'אורורה' זהב", price: "2,400", options: true },
+        { id: 2, name: "צמיד 'הלנה' קלאסי", price: "1,850", options: true },
+        { id: 3, name: "שרשרת יהלום סוליטר", price: "5,200", options: false },
+        { id: 4, name: "עגילי פנינת הים", price: "950", options: false },
+        { id: 5, name: "טבעת איטרניטי", price: "3,100", options: false },
+        { id: 6, name: "שרשרת 'מזל' אישית", price: "1,200", options: false },
+        { id: 7, name: "צמיד רגל 'מרינה'", price: "650", options: false },
+        { id: 8, name: "עגילי חישוק מוזהבים", price: "880", options: false },
+        { id: 9, name: "טבעת חותם 'סטטוס'", price: "2,200", options: false },
+        { id: 10, name: "סט 'רויאל' יוקרתי", price: "7,500", options: false }
     ];
 
-    const grid = document.getElementById('product-grid');
-    let cartCount = 0;
-
+    const store = document.getElementById('jewelry-store');
+    
     products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        
         let optionsHtml = '';
-        if(p.hasOptions) {
+        if(p.options) {
             optionsHtml = `
-                <div class="options">
-                    <label>צבע מתכת:</label>
+                <div class="customization">
+                    <label>בחירת מתכת:</label>
                     <select>
-                        <option>זהב 14K</option>
+                        <option>זהב צהוב 18K</option>
                         <option>כסף סטרלינג 925</option>
+                        <option>זהב אדום (Rose Gold)</option>
                     </select>
-                    <label style="display:block; margin-top:10px;">חריטה אישית:</label>
-                    <input type="text" placeholder="מה לכתוב? (אופציונלי)">
+                    <label style="display:block; margin-top:10px;">חריטה אישית בחינם:</label>
+                    <input type="text" placeholder="הקלידו טקסט לחריטה...">
                 </div>
             `;
         }
 
-        card.innerHTML = `
-            <div class="image-placeholder">תמונת תכשיט</div>
-            <h3>${p.name}</h3>
-            <p class="price">₪${p.price}</p>
-            ${optionsHtml}
-            <button onclick="addToCart()">הוסף לסל</button>
+        store.innerHTML += `
+            <div class="card">
+                <div class="image-box">📷 תמונה יוקרתית</div>
+                <h3>${p.name}</h3>
+                <div class="price">₪${p.price}</div>
+                ${optionsHtml}
+                <button class="btn" onclick="add()">הוספה למארז</button>
+            </div>
         `;
-        grid.appendChild(card);
     });
 
-    function addToCart() {
-        cartCount++;
-        document.getElementById('cart-count').innerText = cartCount;
-        alert("המוצר נוסף לסל הקניות בהצלחה!");
+    let c = 0;
+    function add() {
+        c++;
+        document.getElementById('count').innerText = c;
+        alert("הפריט נוסף למארז היוקרתי שלך.");
     }
 </script>
 
