@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELIRAN | חנות התכשיטים</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Assistant:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* עיצוב פנימי ספציפי לדף החנות */
+        .shop-hero {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #fdfaf3;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .products-grid {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
 
+        .product-card {
+            background: white;
+            border: 1px solid #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: #f9f9f9;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #ccc;
+            letter-spacing: 2px;
+        }
+
+        .product-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .custom-area {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-add {
+            background: var(--black);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: auto;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-add:hover {
+            background: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">ELIRAN</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">בית</a></li>
+                    <li><a href="shop.html" style="color: var(--gold);">קולקציה</a></li>
+                    <li><a href="engraving.html">חריטה אישית</a></li>
+                    <li><a href="contact.html">צור קשר</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="shop-hero">
+        <h1 style="font-family: 'Cinzel';">THE COLLECTION</h1>
+        <p>תכשיטים שנבחרו בקפידה עבור רגעים בלתי נשכחים</p>
+    </section>
+
+    <main class="products-grid" id="shop-items">
+        </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">ELIRAN</div>
+                <p>יוקרה. איכות. עיצוב אישי.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>צרו קשר</h4>
+                <p>📞 050-1234567</p>
+                <p>✉️ info@eliran-jewelry.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 ELIRAN JEWELRY
+        </div>
+    </footer>
+
+    <script>
+        // רשימת 10 התכשיטים
+        const items = [
+            { id: 1, name: "צמיד טניס יוקרתי", price: "1,200", hasOptions: true },
+            { id: 2, name: "צמיד חוליות קלאסי", price: "950", hasOptions: true },
+            { id: 3, name: "שרשרת יהלום סוליטר", price: "4,500", hasOptions: false },
+            { id: 4, name: "עגילי פנינה טבעית", price: "680", hasOptions: false },
+            { id: 5, name: "טבעת זהב 14K עדינה", price: "1,150", hasOptions: false },
+            { id: 6, name: "שרשרת שם בעיצוב אישי", price: "890", hasOptions: false },
+            { id: 7, name: "צמיד רגל מוזהב", price: "420", hasOptions: false },
+            { id: 8, name: "עגילי חישוק זהב אדום", price: "720", hasOptions: false },
+            { id: 9, name: "טבעת חותם 'מלכות'", price: "1,800", hasOptions: false },
+            { id: 10, name: "סט תכשיטי כלה", price: "7,200", hasOptions: false }
+        ];
+
+        const grid = document.getElementById('shop-items');
+
+        items.forEach(product => {
+            let customHtml = '';
+            // הוספת אפשרות חריטה וצבע רק ל-2 המוצרים הראשונים
+            if(product.hasOptions) {
+                customHtml = `
+                    <div class="custom-area">
+                        <label>בחירת מתכת:</label>
+                        <select>
+                            <option>זהב צהוב 14K</option>
+                            <option>כסף סטרלינג 925</option>
+                        </select>
+                        <label style="display:block; margin-top:10px;">חריטה אישית:</label>
+                        <input type="text" placeholder="הקלידו טקסט...">
+                    </div>
+                `;
+            }
+
+            grid.innerHTML += `
+                <div class="product-card">
+                    <div class="product-image">IMAGE</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">₪${product.price}</div>
+                    ${customHtml}
+                    <button class="btn-add" onclick="alert('נוסף לסל')">הוספה לסל</button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
