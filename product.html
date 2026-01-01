@@ -8,29 +8,87 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .product-page-container {
-            max-width: 1000px;
-            margin: 50px auto;
+            max-width: 1100px;
+            margin: 60px auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            padding: 20px;
+            gap: 60px;
+            padding: 0 20px;
         }
-        .product-image-large {
+        .product-image-box {
             background: #f9f9f9;
-            height: 500px;
+            height: 550px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Cinzel';
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
             color: #ccc;
-            border: 1px solid #eee;
+            border: 1px solid #f0f0f0;
+            letter-spacing: 3px;
         }
-        .product-details h1 { font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 10px; }
-        .product-description { line-height: 1.8; color: #555; margin: 20px 0; font-size: 1.1rem; }
-        .product-price-large { font-size: 2rem; color: var(--gold); font-weight: 600; margin-bottom: 30px; }
-        
-        @media (max-width: 768px) {
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .product-details h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            margin: 0 0 15px 0;
+            color: var(--black);
+        }
+        .product-price-large {
+            font-size: 2.2rem;
+            color: var(--gold);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        .product-description-text {
+            line-height: 1.8;
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .options-section {
+            background: #fdfaf3;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #f3ede0;
+        }
+        .options-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .custom-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: white;
+            margin-bottom: 20px;
+            font-family: 'Assistant', sans-serif;
+        }
+        .btn-large {
+            background: var(--black);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .btn-large:hover {
+            background: var(--gold);
+        }
+        @media (max-width: 850px) {
             .product-page-container { grid-template-columns: 1fr; }
+            .product-image-box { height: 400px; }
         }
     </style>
 </head>
@@ -49,40 +107,74 @@
         </div>
     </header>
 
-    <main class="product-page-container" id="product-content">
+    <main class="product-page-container" id="product-display">
         </main>
 
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">ELIRAN</div>
+                <p>יוקרה נצחית בכל פרט. התכשיטים שלנו מיוצרים בעבודת יד קפדנית מזהב 14K ו-18K.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>שירות לקוחות</h4>
+                <p>משלוחים מאובטחים לכל הארץ</p>
+                <p>📞 050-1234567</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // בסיס נתונים של תיאורי המוצרים
-        const productsInfo = {
-            1: { name: "צמיד טניס 'אריאה'", price: "1,200", desc: "צמיד טניס קלאסי משובץ זירקונים באיכות הגבוהה ביותר. עשוי זהב 14K, מעניק מראה יוקרתי ונוצץ לכל אירוע." },
-            2: { name: "צמיד חוליות 'מרינה'", price: "950", desc: "צמיד חוליות מעוצב בסגנון מודרני. ניתן להוסיף חריטה אישית על לוחית הזהב המרכזית. מתנה מושלמת עם משמעות." },
-            3: { name: "שרשרת יהלום סוליטר", price: "4,500", desc: "יהלום טבעי בחיתוך בריליאנט על שרשרת זהב דקה. פריט חובה בכל קולקציית תכשיטים, עדין ואלגנטי." }
-            // ניתן להוסיף כאן את כל 10 המוצרים...
+        const productsDatabase = {
+            1: { name: "צמיד טניס יוקרתי", price: "1,200", desc: "צמיד טניס קלאסי המעניק מראה יוקרתי ונוצץ. עשוי זהב 14K ומשובץ אבני זירקון באיכות AAA. פריט חובה לערב מושלם.", hasCustom: true },
+            2: { name: "צמיד חוליות קלאסי", price: "950", desc: "עיצוב מודרני ונקי של חוליות זהב. הצמיד כולל לוחית חלקה המיועדת לחריטה אישית של שם או תאריך משמעותי.", hasCustom: true },
+            3: { name: "שרשרת יהלום סוליטר", price: "4,500", desc: "שרשרת זהב דקה עם תליון יהלום טבעי. השילוב המושלם בין עדינות ליוקרה בלתי מתפשרת.", hasCustom: false },
+            4: { name: "עגילי פנינה טבעית", price: "680", desc: "עגילי פנינה צחורים הגדלים במים מתוקים. בחירה קלאסית לכלה או למראה יומיומי אלגנטי.", hasCustom: false },
+            5: { name: "טבעת זהב 14K עדינה", price: "1,150", desc: "טבעת דקה בעיצוב מינימליסטי. מושלמת לענידה לבד או כחלק מסט טבעות על אותה אצבע.", hasCustom: false },
+            6: { name: "שרשרת שם בעיצוב אישי", price: "890", desc: "הפכי את השם שלך ליצירת אמנות. שרשרת בחיתוך לייזר מדויק מזהב אמיתי.", hasCustom: false },
+            7: { name: "צמיד רגל מוזהב", price: "420", desc: "צמיד רגל עדין עם תליוני לב קטנים. הפריט המושלם לימי הקיץ והחופשות.", hasCustom: false },
+            8: { name: "עגילי חישוק זהב אדום", price: "720", desc: "חישוקים קלאסיים בגוון Rose Gold חם ומחמיא. קלים ונוחים לענידה לאורך כל היום.", hasCustom: false },
+            9: { name: "טבעת חותם 'מלכות'", price: "1,800", desc: "טבעת חותם מסיבית ומרשימה. עיצוב המשלב כוח וסטייל נצחי.", hasCustom: false },
+            10: { name: "סט תכשיטי כלה", price: "7,200", desc: "מארז יוקרתי הכולל שרשרת, עגילים וצמיד תואמים ליום המיוחד ביותר בחייך.", hasCustom: false }
         };
 
-        // פונקציה לקריאת ה-ID מהכתובת
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-        const product = productsInfo[productId];
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const p = productsDatabase[id];
+        const display = document.getElementById('product-display');
 
-        const container = document.getElementById('product-content');
-
-        if (product) {
-            container.innerHTML = `
-                <div class="product-image-large">תמונת תקריב</div>
-                <div class="product-details">
-                    <h1>${product.name}</h1>
-                    <div class="product-price-large">₪${product.price}</div>
-                    <div class="product-description">
-                        <h3>תיאור התכשיט:</h3>
-                        <p>${product.desc}</p>
+        if (p) {
+            let options = '';
+            if(p.hasCustom) {
+                options = `
+                    <div class="options-section">
+                        <label>בחירת סוג הזהב:</label>
+                        <select class="custom-input">
+                            <option>זהב צהוב 14K</option>
+                            <option>זהב לבן 14K</option>
+                            <option>זהב אדום 14K</option>
+                        </select>
+                        <label>חריטה אישית (אופציונלי):</label>
+                        <input type="text" class="custom-input" placeholder="למשל: I Love You / 12.05.24">
                     </div>
-                    <button class="btn-add" style="padding: 20px;">הוספה לסל הקניות</button>
+                `;
+            }
+
+            display.innerHTML = `
+                <div class="product-image-box">תמונת תקריב - ${p.name}</div>
+                <div class="product-details">
+                    <h1>${p.name}</h1>
+                    <div class="product-price-large">₪${p.price}</div>
+                    <div class="product-description-text">
+                        <p>${p.desc}</p>
+                        <p style="margin-top:10px;">• עבודת יד • זהב אמיתי • אריזה יוקרתית</p>
+                    </div>
+                    ${options}
+                    <button class="btn-large" onclick="alert('נוסף לסל הקניות שלך')">הוספה לסל הקנייה</button>
                 </div>
             `;
         } else {
-            container.innerHTML = "<h2>המוצר לא נמצא</h2>";
+            display.innerHTML = "<h1>המוצר לא נמצא</h1>";
         }
     </script>
 </body>
