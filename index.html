@@ -1,166 +1,76 @@
-<div class="op-product-container">
-    
-    <div class="op-gallery">
-        <img src="https://via.placeholder.com/800x1200" alt="מוצר 1">
-        <img src="https://via.placeholder.com/800x1200" alt="מוצר 2">
-        <img src="https://via.placeholder.com/800x1200" alt="מוצר 3">
+<div class="engraving-preview-container">
+    <div class="product-base-image">
+        <img id="base-necklace" src="URL_TO_YOUR_CLEAN_IMAGE" alt="Necklace">
+        <div id="preview-text" class="preview-text-overlay">השם שלך</div>
     </div>
 
-    <div class="op-product-details">
-        <div class="op-sticky-inner">
-            <span class="op-brand">BRAND NAME</span>
-            <h1 class="op-title">שם המוצר המבוקש</h1>
-            <div class="op-price">₪299.00</div>
-
-            <div class="op-custom-field">
-                <label for="engraving">טקסט לחריטה אישית</label>
-                <input type="text" id="engraving" name="engraving" placeholder="הכנס טקסט כאן...">
-            </div>
-
-            <div class="op-variations">
-                <label>בחר מידה</label>
-                <div class="size-swatches">
-                    <button>S</button>
-                    <button class="active">M</button>
-                    <button>L</button>
-                    <button>XL</button>
-                </div>
-            </div>
-
-            <button class="op-add-to-cart">הוספה לסל הקניות</button>
-
-            <div class="op-extra-info">
-                <p><strong>משלוח:</strong> חינם עד הבית ברכישה מעל ₪299</p>
-                <p><strong>החזרות:</strong> עד 14 יום באריזה מקורית</p>
-            </div>
+    <div class="engraving-controls">
+        <label>הטקסט שלך (עד 10 תווים):</label>
+        <input type="text" id="user-text" maxlength="10" placeholder="הקלד כאן..." oninput="updatePreview()">
+        
+        <label>בחר פונט:</label>
+        <div class="font-selector">
+            <button onclick="changeFont('Assistant')" style="font-family: Assistant;">דפוס</button>
+            <button onclick="changeFont('Dancing Script')" style="font-family: 'Dancing Script';">כתב יד</button>
         </div>
     </div>
 </div>
 
 <style>
-/* עיצוב כללי בסגנון One Project */
-.op-product-container {
+.engraving-preview-container {
     display: flex;
-    flex-direction: row-reverse; /* התאמה לעברית */
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: 'Assistant', sans-serif;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
 }
-
-/* גלריה */
-.op-gallery {
-    flex: 1.5;
-}
-.op-gallery img {
-    width: 100%;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* עמודת פרטים דביקה */
-.op-product-details {
-    flex: 1;
+.product-base-image {
     position: relative;
+    width: 100%;
 }
-.op-sticky-inner {
-    position: sticky;
-    top: 80px; /* מרחק מהקצה העליון */
-    padding: 20px;
-    text-align: right;
-}
-
-.op-brand {
-    font-size: 14px;
-    letter-spacing: 1px;
-    color: #888;
-    text-transform: uppercase;
-}
-
-.op-title {
-    font-size: 28px;
-    font-weight: 600;
-    margin: 10px 0;
-    color: #000;
-}
-
-.op-price {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
-
-/* שדה חריטה */
-.op-custom-field {
-    margin-bottom: 20px;
-}
-.op-custom-field label {
+#base-necklace {
+    width: 100%;
     display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
 }
-.op-custom-field input {
+.preview-text-overlay {
+    position: absolute;
+    top: 55%; /* התאמה לפי מיקום התליון בתמונה */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #4a4a4a; /* צבע שנראה כמו חריטה */
+    pointer-events: none;
+    text-align: center;
+    width: 80%;
+    white-space: nowrap;
+}
+.engraving-controls input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 0;
-    outline: none;
-    transition: border 0.3s;
+    border: 1px solid #ccc;
+    margin-top: 10px;
 }
-.op-custom-field input:focus {
-    border-color: #000;
-}
-
-/* מידות */
-.size-swatches {
+.font-selector {
     display: flex;
     gap: 10px;
-    margin: 10px 0 30px 0;
+    margin-top: 10px;
 }
-.size-swatches button {
-    border: 1px solid #e0e0e0;
-    background: white;
-    padding: 10px 15px;
+.font-selector button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #000;
+    background: #fff;
     cursor: pointer;
-    min-width: 50px;
-}
-.size-swatches button.active {
-    border-color: #000;
-    font-weight: bold;
-}
-
-/* כפתור הוספה לסל */
-.op-add-to-cart {
-    width: 100%;
-    background: #000;
-    color: #fff;
-    padding: 18px;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
-.op-add-to-cart:hover {
-    opacity: 0.85;
-}
-
-.op-extra-info {
-    margin-top: 30px;
-    font-size: 13px;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-    color: #555;
-    line-height: 1.6;
-}
-
-/* התאמה למובייל */
-@media (max-width: 768px) {
-    .op-product-container {
-        flex-direction: column;
-    }
-    .op-sticky-inner {
-        position: static;
-    }
 }
 </style>
+
+<script>
+function updatePreview() {
+    const input = document.getElementById('user-text');
+    const preview = document.getElementById('preview-text');
+    preview.innerText = input.value || "השם שלך";
+}
+
+function changeFont(fontName) {
+    document.getElementById('preview-text').style.fontFamily = fontName;
+}
+</script>
