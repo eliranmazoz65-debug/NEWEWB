@@ -1,95 +1,166 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELIRAN | דף הבית</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Assistant:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* עיצוב ייחודי לדף הבית - תמונת אווירה גדולה */
-        .hero-section {
-            height: 85vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1531995811006-35cb42e1a022?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
+<div class="op-product-container">
+    
+    <div class="op-gallery">
+        <img src="https://via.placeholder.com/800x1200" alt="מוצר 1">
+        <img src="https://via.placeholder.com/800x1200" alt="מוצר 2">
+        <img src="https://via.placeholder.com/800x1200" alt="מוצר 3">
+    </div>
 
-        .hero-section h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 4rem;
-            letter-spacing: 12px;
-            margin-bottom: 20px;
-        }
+    <div class="op-product-details">
+        <div class="op-sticky-inner">
+            <span class="op-brand">BRAND NAME</span>
+            <h1 class="op-title">שם המוצר המבוקש</h1>
+            <div class="op-price">₪299.00</div>
 
-        .hero-section p {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
-        }
-
-        .explore-btn {
-            padding: 15px 40px;
-            border: 1px solid white;
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            text-transform: uppercase;
-        }
-
-        .explore-btn:hover {
-            background: white;
-            color: black;
-        }
-    </style>
-</head>
-<body>
-
-    <header class="main-header">
-        <div class="header-container">
-            <a href="index.html" class="logo">ELIRAN</a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" style="color: var(--gold);">בית</a></li>
-                    <li><a href="shop.html">קולקציה</a></li>
-                    <li><a href="contact.html">צור קשר</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero-section">
-            <h1>ELIRAN</h1>
-            <p>תכשיטי יוקרה בעיצוב אישי</p>
-            <a href="shop.html" class="explore-btn">לגילוי הקולקציה</a>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <div class="footer-grid">
-            <div class="footer-about">
-                <div class="footer-logo">ELIRAN</div>
-                <p>האיכות נמצאת בפרטים הקטנים. זהב 14K ויהלומים בעבודת יד.</p>
+            <div class="op-custom-field">
+                <label for="engraving">טקסט לחריטה אישית</label>
+                <input type="text" id="engraving" name="engraving" placeholder="הכנס טקסט כאן...">
             </div>
-            <div class="footer-contact">
-                <h4>צרו קשר</h4>
-                <p>📞 050-1234567</p>
+
+            <div class="op-variations">
+                <label>בחר מידה</label>
+                <div class="size-swatches">
+                    <button>S</button>
+                    <button class="active">M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                </div>
+            </div>
+
+            <button class="op-add-to-cart">הוספה לסל הקניות</button>
+
+            <div class="op-extra-info">
+                <p><strong>משלוח:</strong> חינם עד הבית ברכישה מעל ₪299</p>
+                <p><strong>החזרות:</strong> עד 14 יום באריזה מקורית</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            &copy; 2026 ELIRAN JEWELRY | כל הזכויות שמורות
-        </div>
-    </footer>
+    </div>
+</div>
 
-</body>
-</html>
+<style>
+/* עיצוב כללי בסגנון One Project */
+.op-product-container {
+    display: flex;
+    flex-direction: row-reverse; /* התאמה לעברית */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Assistant', sans-serif;
+}
+
+/* גלריה */
+.op-gallery {
+    flex: 1.5;
+}
+.op-gallery img {
+    width: 100%;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* עמודת פרטים דביקה */
+.op-product-details {
+    flex: 1;
+    position: relative;
+}
+.op-sticky-inner {
+    position: sticky;
+    top: 80px; /* מרחק מהקצה העליון */
+    padding: 20px;
+    text-align: right;
+}
+
+.op-brand {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.op-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #000;
+}
+
+.op-price {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* שדה חריטה */
+.op-custom-field {
+    margin-bottom: 20px;
+}
+.op-custom-field label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.op-custom-field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
+    outline: none;
+    transition: border 0.3s;
+}
+.op-custom-field input:focus {
+    border-color: #000;
+}
+
+/* מידות */
+.size-swatches {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 30px 0;
+}
+.size-swatches button {
+    border: 1px solid #e0e0e0;
+    background: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    min-width: 50px;
+}
+.size-swatches button.active {
+    border-color: #000;
+    font-weight: bold;
+}
+
+/* כפתור הוספה לסל */
+.op-add-to-cart {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 18px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.op-add-to-cart:hover {
+    opacity: 0.85;
+}
+
+.op-extra-info {
+    margin-top: 30px;
+    font-size: 13px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+    .op-product-container {
+        flex-direction: column;
+    }
+    .op-sticky-inner {
+        position: static;
+    }
+}
+</style>
