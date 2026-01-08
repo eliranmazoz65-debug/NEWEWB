@@ -1,76 +1,71 @@
-<div class="engraving-preview-container">
-    <div class="product-base-image">
-        <img id="base-necklace" src="URL_TO_YOUR_CLEAN_IMAGE" alt="Necklace">
-        <div id="preview-text" class="preview-text-overlay">השם שלך</div>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; padding: 50px; }
+        
+        .product-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 350px; }
+
+        /* מיכל התמונה */
+        .preview-box { position: relative; width: 300px; height: 300px; margin: 0 auto 20px auto; overflow: hidden; border-radius: 10px; }
+        
+        /* תמונת התכשיט מה-GitHub שלך */
+        .jewelry-image { width: 100%; height: 100%; object-fit: cover; }
+
+        /* שכבת החריטה - ממוקמת על התליון */
+        #engraving-text {
+            position: absolute;
+            top: 52%; /* מיקום אנכי על התליון */
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg); /* סיבוב קל שיתאים לזווית הצילום */
+            width: 140px; /* הגבלה לרוחב התליון */
+            color: rgba(60, 50, 40, 0.7); /* צבע דמוי חריטה עמוקה */
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            pointer-events: none;
+            word-wrap: break-word;
+            text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.2);
+        }
+
+        .controls { text-align: right; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; transition: border-color 0.3s; }
+        input:focus { border-color: #d4af37; outline: none; }
+    </style>
+</head>
+<body>
+
+<div class="product-card">
+    <div class="preview-box">
+        <img src="https://raw.githubusercontent.com/eliranmazoz65-debug/NEWEWB/main/download.jpg" alt="Jewelry" class="jewelry-image">
+        <div id="engraving-text">הטקסט שלך</div>
     </div>
 
-    <div class="engraving-controls">
-        <label>הטקסט שלך (עד 10 תווים):</label>
-        <input type="text" id="user-text" maxlength="10" placeholder="הקלד כאן..." oninput="updatePreview()">
-        
-        <label>בחר פונט:</label>
-        <div class="font-selector">
-            <button onclick="changeFont('Assistant')" style="font-family: Assistant;">דפוס</button>
-            <button onclick="changeFont('Dancing Script')" style="font-family: 'Dancing Script';">כתב יד</button>
-        </div>
+    <div class="controls">
+        <label for="user-text">טקסט לחריטה:</label>
+        <input type="text" id="user-text" maxlength="15" placeholder="למשל: אמא אהובה">
     </div>
 </div>
 
-<style>
-.engraving-preview-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 400px;
-}
-.product-base-image {
-    position: relative;
-    width: 100%;
-}
-#base-necklace {
-    width: 100%;
-    display: block;
-}
-.preview-text-overlay {
-    position: absolute;
-    top: 55%; /* התאמה לפי מיקום התליון בתמונה */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    color: #4a4a4a; /* צבע שנראה כמו חריטה */
-    pointer-events: none;
-    text-align: center;
-    width: 80%;
-    white-space: nowrap;
-}
-.engraving-controls input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-}
-.font-selector {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-.font-selector button {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #000;
-    background: #fff;
-    cursor: pointer;
-}
-</style>
-
 <script>
-function updatePreview() {
     const input = document.getElementById('user-text');
-    const preview = document.getElementById('preview-text');
-    preview.innerText = input.value || "השם שלך";
-}
+    const display = document.getElementById('engraving-text');
 
-function changeFont(fontName) {
-    document.getElementById('preview-text').style.fontFamily = fontName;
-}
+    input.addEventListener('input', (e) => {
+        // עדכון הטקסט בלייב
+        display.textContent = e.target.value || "הטקסט שלך";
+        
+        // בונוס: הקטנת פונט אוטומטית אם הטקסט ארוך מדי
+        if (e.target.value.length > 10) {
+            display.style.fontSize = "12px";
+        } else {
+            display.style.fontSize = "16px";
+        }
+    });
 </script>
+
+</body>
+</html>
