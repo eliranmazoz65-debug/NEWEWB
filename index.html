@@ -1,30 +1,135 @@
-/* Plugin Name: Jewelry Master Customizer
-Description: חריטה דו-צדדית, אימוג'ים והעלאת תמונות
-*/
+<?php
+/**
+ * Plugin Name: Jewelry Master Personalizer PRO
+ * Description: פתרון מלא לחריטה, תמונות, אימוג'ים ותמחור דינמי
+ * Version: 3.0
+ */
 
-add_action( 'woocommerce_before_add_to_cart_button', 'jmc_render_customizer' );
-function jmc_render_customizer() {
-    ?>
-    <div id="jewelry-designer-app">
-        <div class="side-switcher">
-            <button type="button" onclick="switchSide('front')">צד קדמי</button>
-            <button type="button" onclick="switchSide('back')">צד אחורי</button>
-        </div>
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-        <div class="canvas-wrapper" style="position:relative; background: #eee;">
-            <canvas id="jewelry-canvas" width="300" height="300"></canvas>
-        </div>
+// 1. הוספת טאב "התאמה אישית" בתוך עריכת מוצר
+add_filter( 'woocommerce_product_data_tabs', 'jmp_add_admin_tab' );
+function jmp_add_admin_tab( $tabs ) {
+    $tabs['jewelry_master'] = array(
+        'label'    => 'התאמה אישית PRO',
+        'target'   => 'jewelry_master_data',
+        'class'    => array( 'show_if_simple', 'show_if_variable' ),
+    );
+    return $tabs;
+}
 
-        <div class="toolbar">
-            <button type="button" onclick="addText()">➕ הוסף טקסט</button>
-            <button type="button" onclick="addEmoji('❤️')">❤️</button>
-            <button type="button" onclick="addEmoji('⭐')">⭐</button>
-            <input type="file" id="imageLoader" title="העלה תמונה" accept="image/*">
-        </div>
-        
-        <input type="hidden" name="custom_design_data" id="custom_design_data">
-    </div>
+// 2. תוכן הלוח בקרה לכל מוצר
+add_action( 'woocommerce_product_data_panels', 'jmp_admin_panel_content' );
+function jmp_admin_panel_content() {
+    echo '<div id="jewelry_master_data" class="panel woocommerce_options_panel">';
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
-    <?php
+    echo '<strong>הגדרות חריטה ואפשרויות:</strong>';
+    
+    woocommerce_wp_checkbox( array( 'id' => '_jmp_enable_text', 'label' => 'אפשר חריטת טקסט' ) );
+    woocommerce_wp_checkbox( array( 'id' => '_jmp_enable_image', 'label' => 'אפשר העלאת תמונה' ) );
+    woocommerce_wp_checkbox( array( 'id' => '_jmp_enable_backside', 'label' => 'אפשר צד שני' ) );
+    
+    woocommerce_wp_text_input( array( 
+        'id' => '_jmp_backside_price', 
+        'label' => 'תוספת מחיר לצד שני (₪)', 
+        'type' => 'number',
+        'custom_attributes' => array('step' => 'any', 'min' => '0')
+    ) );
+
+    echo '</div>';
+}
+
+// 3. שמירת ההגדרות
+add_action( 'woocommerce_process_product_meta', 'jmp_save_admin_settings' );
+function jmp_save_admin_settings( $post_id ) {
+    update_post_meta( $post_id, '_jmp_enable_text', isset($_POST['_jmp_enable_text']) ? 'yes' : 'no' );
+    update_post_meta( $post_id, '_jmp_enable_image', isset($_POST['_jmp_enable_image']) ? 'yes' : 'no' );
+    update_post_meta( $post_id, '_jmp_enable_backside', isset($_POST['_jmp_enable_backside']) ? 'yes' : 'no' );
+    update_post_meta( $post_id, '_jmp_backside_price', sanitize_text_field($_POST['_jmp_backside_price']) );
+}
+// 4. הצגת השדות ללקוח
+add_action( 'woocommerce_before_add_to_cart_button', 'jmp_display_frontend_fields' );
+function jmp_display_frontend_fields() {
+    global $product;
+    $id = $product->get_id();
+
+    if ( get_post_meta($id, '_jmp_enable_text', true) !== 'yes' && 
+         get_post_meta($id, '_jmp_enable_image', true) !== 'yes' &&
+         get_post_meta($id, '_jmp_enable_backside', true) !== 'yes' ) return;
+
+    echo '<div class="jmp-customizer-wrapper" style="border:1px solid #ddd; padding:15px; border-radius:8px; margin-bottom:20px; direction:rtl;">';
+    echo '<h3 style="font-size:16px; margin-top:0;">עיצוב אישי של התכשיט:</h3>';
+
+    if ( get_post_meta($id, '_jmp_enable_text', true) === 'yes' ) {
+        echo '<p><label>טקסט לחריטה:</label><br><input type="text" name="jmp_text" id="jmp_text_input" maxlength="20" style="width:100%;">';
+        echo '<span class="emoji-picker" style="cursor:pointer; font-size:20px; display:block; margin-top:5px;">';
+        echo '<span onclick="document.getElementById(\'jmp_text_input\').value += \'❤️\'">❤️</span> ';
+        echo '<span onclick="document.getElementById(\'jmp_text_input\').value += \'⭐\'">⭐</span> ';
+        echo '<span onclick="document.getElementById(\'jmp_text_input\').value += \'🧿\'">🧿</span>';
+        echo '</span></p>';
+    }
+
+    if ( get_post_meta($id, '_jmp_enable_image', true) === 'yes' ) {
+        echo '<p><label>העלאת תמונה/סמל:</label><br><input type="file" name="jmp_image" accept="image/*"></p>';
+    }
+
+    if ( get_post_meta($id, '_jmp_enable_backside', true) === 'yes' ) {
+        $price = get_post_meta($id, '_jmp_backside_price', true);
+        echo '<p><label><input type="checkbox" name="jmp_add_backside" value="yes"> חריטה בצד השני (תוספת ' . $price . ' ₪)</label></p>';
+    }
+
+    echo '</div>';
+}
+
+// תמיכה בהעלאת קבצים בטופס
+add_action( 'woocommerce_before_add_to_cart_form', function() { echo ' enctype="multipart/form-data" '; } );
+// 5. שמירת הנתונים לסל (כולל העלאת תמונה)
+add_filter( 'woocommerce_add_cart_item_data', 'jmp_save_to_cart', 10, 3 );
+function jmp_save_to_cart( $cart_item_data, $product_id, $variation_id ) {
+    if ( ! empty( $_POST['jmp_text'] ) ) {
+        $cart_item_data['jmp_engraving_text'] = sanitize_text_field( $_POST['jmp_text'] );
+    }
+    if ( ! empty( $_POST['jmp_add_backside'] ) ) {
+        $cart_item_data['jmp_backside'] = 'כן';
+        $cart_item_data['jmp_extra_fee'] = get_post_meta($product_id, '_jmp_backside_price', true);
+    }
+    if ( ! empty( $_FILES['jmp_image']['name'] ) ) {
+        $upload = wp_handle_upload( $_FILES['jmp_image'], array( 'test_form' => false ) );
+        $cart_item_data['jmp_image_url'] = $upload['url'];
+    }
+    return $cart_item_data;
+}
+
+// 6. עדכון המחיר הסופי בעגלה
+add_action( 'woocommerce_before_calculate_totals', 'jmp_add_custom_price', 10 );
+function jmp_add_custom_price( $cart ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+    foreach ( $cart->get_cart() as $item ) {
+        if ( isset( $item['jmp_extra_fee'] ) ) {
+            $new_price = $item['data']->get_price() + floatval($item['jmp_extra_fee']);
+            $item['data']->set_price( $new_price );
+        }
+    }
+}
+// 7. הצגת הנתונים למנהל וללקוח בסיכום הזמנה
+add_filter( 'woocommerce_get_item_data', 'jmp_display_in_checkout', 10, 2 );
+function jmp_display_in_checkout( $item_data, $cart_item ) {
+    if ( isset( $cart_item['jmp_engraving_text'] ) ) {
+        $item_data[] = array( 'name' => 'חריטה', 'value' => $cart_item['jmp_engraving_text'] );
+    }
+    if ( isset( $cart_item['jmp_backside'] ) ) {
+        $item_data[] = array( 'name' => 'צד שני', 'value' => 'כן' );
+    }
+    if ( isset( $cart_item['jmp_image_url'] ) ) {
+        $item_data[] = array( 'name' => 'תמונה', 'value' => 'הועלתה' );
+    }
+    return $item_data;
+}
+
+// שמירה קבועה בדאטהבייס של ההזמנה
+add_action( 'woocommerce_checkout_create_order_line_item', 'jmp_save_order_meta', 10, 4 );
+function jmp_save_order_meta( $item, $cart_item_key, $values, $order ) {
+    if ( isset( $values['jmp_engraving_text'] ) ) $item->add_meta_data( 'טקסט חריטה', $values['jmp_engraving_text'] );
+    if ( isset( $values['jmp_backside'] ) ) $item->add_meta_data( 'חריטה צד שני', 'כן' );
+    if ( isset( $values['jmp_image_url'] ) ) $item->add_meta_data( 'קישור לתמונה', $values['jmp_image_url'] );
 }
